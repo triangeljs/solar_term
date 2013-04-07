@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>html5</title>
+<style type="text/css">
+<!--
+* { margin: 0px; padding: 0px; }
+html { width: 100%; height: 100%; }
+body { font-family:  "微软雅黑", Arial, Helvetica, sans-serif; font-size: 12px; color: #000; line-height: 20px; background: url(images/bbb.gif) no-repeat center center; display: -webkit-box; width: 100%; height: 100%; -webkit-box-pack: center; -webkit-box-align: center; -webkit-backface-visibility: hidden; overflow:hidden; }
+#box { display: table-cell; width: 1024px; height: 768px; overflow: hidden; margin: 0px auto; position: relative;
+	 border-radius: 512px;
+	-webkit-transition-property: all;
+	-webkit-transition-duration: 1s;
+	-webkit-transition-timing-function: ease-in-out;
+}
+#box span { font-size: 16px; width: 16px; position: absolute; left: 512px; top: 0px;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform-origin: 50% 384px;
+}
+-->
+</style>
+<script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+<!--
+var jq = ['立春','雨水','惊蛰','春分','清明','谷雨','立夏','小满','芒种','夏至','小暑','大暑','立秋','处暑','白露','秋分','寒露','霜降','立冬','小雪','大雪','冬至','小寒','大寒'];
+$(function(){
+	var navShowFlag = false;
+	var temp = '';
+	var curRotate = 0;
+	var startX,EndX,startY,EndY,moveX,moveY;
+	
+	for(var i=0; i<jq.length; i++){
+		temp += '<span style="-webkit-transform: rotate('+ i*15 +'deg);">'+ jq[i] +'</span>'; 
+	}
+	$('#box').prepend(temp);
+	
+	$('#box').on('mousedown touchstart',function(e){
+		e.preventDefault();
+    e.stopPropagation();
+		var eDown = e.originalEvent.targetTouches || e.originalEvent.changedTouches;
+		if (!! eDown) {
+			startX = eDown[0].pageX;
+			startY = eDown[0].pageY;
+		} else {
+			startX = curX(e.clientX);
+			startY = curY(e.clientY);
+		}
+		$('#out').html(startY);
+	});
+	
+	$('#box').on('mousemove touchmove',function(e){
+		var w = document.body.clientWidth / 2;
+		var h = document.body.clientHeight / 2;
+		moveX = curX(e.clientX);
+		moveY = curY(e.clientY);
+		//console.log('moveX:' + moveX + '||' + 'moveY:' + moveY);
+	})
+	
+	$('#box').on('mouseup touchend',function(e){
+		e.preventDefault();
+    e.stopPropagation();
+		var eUp = e.originalEvent.targetTouches || e.originalEvent.changedTouches;
+		if (!! eUp) {
+			EndX = eUp[0].pageX;
+			EndY = eUp[0].pageY;
+		} else {
+			EndX = curX(e.clientX);
+			EndY = curY(e.clientY);
+		}
+		$('#out').html(EndY);
+		boxRotate();
+	});
+	
+	function boxRotate(){
+		var w = document.body.clientWidth / 2;
+		var h = document.body.clientHeight / 2;
+		var rangeX = startX - EndX;
+		var rangeY = startY - EndY;
+		
+		var startRotate = getAngle(0, 0, startX, startY);
+		var EndRotate = getAngle(0, 0, EndX, EndY);
+		console.log('startRotate:' + startRotate + '||' + 'EndRotate:' + EndRotate);
+		if(startRotate < EndRotate){
+			curRotate = curRotate - 1;
+			$('#box').css({'-webkit-transform': 'rotate('+ curRotate * 15 +'deg)'});
+		} else {
+			curRotate = curRotate + 1;
+			$('#box').css({'-webkit-transform': 'rotate('+ curRotate * 15 +'deg)'});
+		}
+		//console.log(curRotate);
+	}
+})
+
+function getAngle(x1, y1, x2, y2) {
+	var x = Math.abs(x1 - x2);
+	var y = Math.abs(y1 - y2);
+	
+	var radina = Math.atan2(y,x);
+	var angle =  360 / (Math.PI / radina);
+	return angle;
+}
+
+function curX(i){
+	var w = document.body.clientWidth / 2;
+	var cur = i - w;
+	return cur;
+}
+
+function curY(i){
+	var h = document.body.clientHeight / 2;
+	var cur = h - i;
+	return cur;
+}
+
+/*
+function getAngle(x1, y1, x2, y2) {
+	var x = Math.abs(x1 - x2);
+	var y = Math.abs(y1 - y2);
+	var z = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+	var cos = y / z;
+	var radina = Math.acos(cos);
+	var angle =  180 / (Math.PI / radina);
+	return angle;
+}
+*/
+-->
+</script>
+</head>
+
+<body>
+<div id="box"></div>
+<div id="out"></div>
+</body>
+</html>
