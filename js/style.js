@@ -2,7 +2,11 @@ $(function(){
 	var clientW = document.body.clientWidth;
 	var clientH = document.body.clientHeight;
 	var jq = ['立春','雨水','惊蛰','春分','清明','谷雨','立夏','小满','芒种','夏至','小暑','大暑','立秋','处暑','白露','秋分','寒露','霜降','立冬','小雪','大雪','冬至','小寒','大寒'];
+	var curDeg = 0;
 	var cur = 0;
+	var clientW = document.body.clientWidth;
+	var clientH = document.body.clientHeight;
+	var startX,EndX;
 	
 	var step1 = function() {
 		// init
@@ -65,6 +69,7 @@ $(function(){
 			for(var i=0,len=jq.length; i<len; i++){
 				temp.push('<span style="-webkit-transform: rotate(' + i * 15 + 'deg);">'+ jq[i] +'</span>'); 
 			}
+			
 		// animate
 		window.setTimeout(function(){
 			$('#disc').css({ '-webkit-transform': 'scale(0.2,0.2)' });
@@ -77,22 +82,26 @@ $(function(){
 			$('#triangle-up').css({ '-webkit-transform': 'translate(0px,-20px)', 'opacity': '1' })
 			
 			$('#triangle-up').on('webkitTransitionEnd', function(){
+				$('#triangle-up').off('webkitTransitionEnd');
 				step5();
 			});
 		},700)
 		
 		var step5 = function() {
 			$('#discBox').css({'-webkit-transform': 'translate(0px, ' + (clientH / 2) + 'px)'});
-			$('#discBox').on('webkitTransitionEnd',function(e){
-				$('#discBox').off('webkitTransitionEnd');
+			$('#discBox').on('webkitTransitionEnd', function(e){
+				$(this).off('webkitTransitionEnd');
+				
 				$('#discBox').css({
 					'-webkit-transition-duration': '0.5s',
 					'-webkit-transform': 'translate(0px, ' + (clientH / 2) + 'px) scale(0.3,0.3)'
 				})
+				step6();
+				
+				//事件绑定
 				$('#beautifyDisc').on('mouseup touchend', discOut);
 				$('#disc span').on('mouseup touchend', discOpt);
 				$('#coverBox').on('mouseup touchend', coverBoxOut);
-				step6();
 			})
 		}
 		
@@ -105,35 +114,50 @@ $(function(){
 		}
 	}
 	
+	//启动
 	var run = function() {
-		step1();
+		step4();
 	};
 	run();
 	
+	//节气菜单唤出
 	function discOut(e) {
 		$('#coverBox').show();
 		$('#discBox').off('webkitTransitionEnd');
 		$('#discBox').css({ '-webkit-transform': 'translate(0px, ' + (clientH / 2) + 'px) scale(1,1)' });
 	}
 	
-	function discOpt(e) {
-		var nxt = $(this).index();
-		if (nxt < cur && ((nxt + 12) % 24) > cur) {
-			// 顺时针
-			deg = nxt < cur ? cur - nxt : cur + 24 - nxt;
-			$('#disc').css({ '-webkit-transform': 'scale(1,1) rotate('+ deg * 15 +'deg)' })
-			cur = nxt;
-		} else {
-			// 逆时针
-			deg = nxt > cur ? nxt - cur : nxt + 24 - cur;
-			$('#disc').css({ '-webkit-transform': 'scale(1,1) rotate('+ -deg * 15 +'deg)' })
-			cur = nxt * 15;
-		}
-		console.log('nxt:' + nxt + '/deg:' + deg + '/cur:' + cur);
-		
-	}
+	//节气菜单退出
 	function coverBoxOut(e) {
 		$('#coverBox').hide();
 		$('#discBox').css({ '-webkit-transform': 'translate(0px, ' + (clientH / 2) + 'px) scale(0.3,0.3)' });
+	}
+	
+	//节气操作
+	function discOpt(e) {
+		var ring = Math.ceil(curDeg / 360);
+		startX = getMouse(e);
+		var next = $(this).index() + (24 * ring);
+		if(startX > (clientW / 2)){
+			curDeg = curDeg - (next - cur) * 15;
+			$('#disc').css({ '-webkit-transform': 'scale(1,1) rotate('+ curDeg +'deg)' })
+			cur = next;
+			console.log('curDeg:' + curDeg)
+			console.log('next' + next)
+			console.log('cur' + cur)
+			console.log('ring' + ring)
+		}
+	}
+	
+	//获取鼠标位置
+	function getMouse(e){
+		var mouse;
+		var eDown = e.originalEvent.targetTouches || e.originalEvent.changedTouches;
+		if (!! eDown) {
+			mouse = eDown[0].pageX;
+		} else {
+			mouse = e.clientX;
+		}
+		return mouse;
 	}
 });
