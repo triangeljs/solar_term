@@ -4,8 +4,6 @@ $(function(){
 	var jq = ['立春','雨水','惊蛰','春分','清明','谷雨','立夏','小满','芒种','夏至','小暑','大暑','立秋','处暑','白露','秋分','寒露','霜降','立冬','小雪','大雪','冬至','小寒','大寒'];
 	var curDeg = 0;
 	var cur = 0;
-	var clientW = document.body.clientWidth;
-	var clientH = document.body.clientHeight;
 	var startX,EndX;
 	
 	var step1 = function() {
@@ -20,6 +18,8 @@ $(function(){
 		
 		// event
 		function synopsisOut(e) {
+			e.preventDefault();
+			e.stopPropagation();
 			$('#synopsis').on('webkitTransitionEnd', function(){
 				step2();
 			});
@@ -53,7 +53,6 @@ $(function(){
 		window.setTimeout(function(){
 			$('#info2 h1, #info2 h2, #info2 h3, #info2 h4').css({ '-webkit-transform': 'translate(0px,-60px)', 'opacity': '0' });
 			$('#info2 h4').on('webkitTransitionEnd', function(){
-				$('#info2 h4').off('webkitTransitionEnd');
 				step4();
 			});
 		},3000)
@@ -64,7 +63,6 @@ $(function(){
 		var Template = _.template($("#discTemplate").html());
 		$('#wrapper').remove();
 		$('body').prepend(Template);
-		//$('body').append('<div id="coverBox"></div>');
 		var temp = [];
 			for(var i=0,len=jq.length; i<len; i++){
 				temp.push('<span style="-webkit-transform: rotate(' + i * 15 + 'deg);">'+ jq[i] +'</span>'); 
@@ -123,7 +121,6 @@ $(function(){
 	//节气菜单唤出
 	function discOut(e) {
 		$('#coverBox').show();
-		$('#discBox').off('webkitTransitionEnd');
 		$('#discBox').css({ '-webkit-transform': 'translate(0px, ' + (clientH / 2) + 'px) scale(1,1)' });
 	}
 	
@@ -135,18 +132,34 @@ $(function(){
 	
 	//节气操作
 	function discOpt(e) {
-		var ring = Math.ceil(curDeg / 360);
-		startX = getMouse(e);
-		var next = $(this).index() + (24 * ring);
-		if(startX > (clientW / 2)){
-			curDeg = curDeg - (next - cur) * 15;
-			$('#disc').css({ '-webkit-transform': 'scale(1,1) rotate('+ curDeg +'deg)' })
-			cur = next;
-			console.log('curDeg:' + curDeg)
-			console.log('next' + next)
-			console.log('cur' + cur)
-			console.log('ring' + ring)
+		e.preventDefault();
+		e.stopPropagation();
+		var nextInt = $(this).index();
+		curDeg += discArray(cur, nextInt);
+		cur = nextInt;
+		$('#disc').css({ '-webkit-transform': 'scale(1,1) rotate('+ curDeg +'deg)' });
+		nextInt = null;
+		addDeg = null;
+		/*$('#disc').on('webkitTransitionEnd',function(){
+			$('#discBeautify').css({ 'display': 'none' })
+		})*/
+	}
+	
+	//获取转盘运动
+	function discArray(curInt,nextInt) {
+		var solar = [];
+		solar.push(curInt);
+		for(var i=1;i<13;i++) {
+			solar.push((curInt + i > 23) ? ((curInt + i) % 24) : (curInt + i));
+			solar.unshift((curInt - i < 1) ? ((curInt - i + 24) % 24) : (curInt - i));
 		}
+		solar.pop();
+		console.log(solar);
+		for(var i=0,len=solar.length;i<len;i++) {
+			if(solar[i]==nextInt) { solar = null; return (12 - i) * 15; }
+		}
+		solar = null;
+		return 0;
 	}
 	
 	//获取鼠标位置
