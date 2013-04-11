@@ -53,6 +53,7 @@ $(function(){
 		window.setTimeout(function(){
 			$('#info2 h1, #info2 h2, #info2 h3, #info2 h4').css({ '-webkit-transform': 'translate(0px,-60px)', 'opacity': '0' });
 			$('#info2 h4').on('webkitTransitionEnd', function(){
+				$('#info2 h4').off('webkitTransitionEnd');
 				step4();
 			});
 		},3000)
@@ -63,6 +64,8 @@ $(function(){
 		var Template = _.template($("#discTemplate").html());
 		$('#wrapper').remove();
 		$('body').prepend(Template);
+		
+		//$('#wrapper').html(Template);
 		var temp = [];
 			for(var i=0,len=jq.length; i<len; i++){
 				temp.push('<span style="-webkit-transform: rotate(' + i * 15 + 'deg);">'+ jq[i] +'</span>'); 
@@ -75,8 +78,7 @@ $(function(){
 		window.setTimeout(function(){
 			$('#disc').prepend(temp.join(''));
 			$('#beautifyDisc').css({ '-webkit-transform': 'scale(1,1)', 'opacity': '1' })
-			//$('#disc').css({ '-webkit-transform': 'scale(1,1) rotate(90deg)', 'background-image': 'url(/solar_term/images/b_5.gif)' })
-			$('#disc').css({ '-webkit-transform': 'scale(1,1)', 'background-image': 'url(/solar_term/images/b_5.gif)' })
+			$('#disc').css({ '-webkit-transform': 'scale(1,1)' }).addClass('bgXg')
 			$('#triangle-up').css({ '-webkit-transform': 'translate(0px,-20px)', 'opacity': '1' })
 			
 			$('#triangle-up').on('webkitTransitionEnd', function(){
@@ -98,35 +100,44 @@ $(function(){
 				
 				//事件绑定
 				$('#beautifyDisc').on('mouseup touchend', discOut);
-				$('#disc span').on('mouseup touchend', discOpt);
 				$('#coverBox').on('mouseup touchend', coverBoxOut);
 			})
 		}
 		
 		var step6 = function() {
 			var Template = _.template($("#itemTemplate").html());
-			var w = (clientW - 680) / 2;
-			var h = (clientH - 768) / 2
+			var w = (clientW - $('#itemBox').width()) / 2;
+			var h = (clientH - $('#itemBox').height()) / 2;
 			$('#itemBox').html(Template).show().css({ 'left': w, 'top': h });
 			$('body').css({ 'background-image': 'none' })
+			$('#itemBox div').on('touchmove', function(e) {
+				$(this).css({ 'overflow': 'scroll'});
+			});
 		}
 	}
 	
 	//启动
 	var run = function() {
-		step4();
+		$('body').on('touchmove', function(e) {e.preventDefault();e.stopPropagation();return false;});
+		step1();
 	};
 	run();
 	
 	//节气菜单唤出
 	function discOut(e) {
+		e.preventDefault();
+		e.stopPropagation();
 		$('#coverBox').show();
+		$('#disc span').on('mouseup touchend', discOpt);
 		$('#discBox').css({ '-webkit-transform': 'translate(0px, ' + (clientH / 2) + 'px) scale(1,1)' });
 	}
 	
 	//节气菜单退出
 	function coverBoxOut(e) {
+		e.preventDefault();
+		e.stopPropagation();
 		$('#coverBox').hide();
+		$('#disc span').off('mouseup touchend');
 		$('#discBox').css({ '-webkit-transform': 'translate(0px, ' + (clientH / 2) + 'px) scale(0.3,0.3)' });
 	}
 	
@@ -140,9 +151,6 @@ $(function(){
 		$('#disc').css({ '-webkit-transform': 'scale(1,1) rotate('+ curDeg +'deg)' });
 		nextInt = null;
 		addDeg = null;
-		/*$('#disc').on('webkitTransitionEnd',function(){
-			$('#discBeautify').css({ 'display': 'none' })
-		})*/
 	}
 	
 	//获取转盘运动
