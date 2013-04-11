@@ -93,9 +93,9 @@
 	#itemBox h1 { font-size: 60px; line-height: 60px; background: url(../images/b_7.gif) no-repeat center center; text-align: center; }
 	#itemBox ul { text-align: center; clear: both; width: 100%; }
 	#itemBox ul li { font-size: 20px; line-height: 110px; display: inline; margin: 0px 40px; }
-	#itemBox div { height: 300px; overflow: hidden; }
+	#itemBox div { height: 300px; overflow: auto; }
 	#itemBox div p { font-size: 20px; line-height: 30px; text-indent: 30px; }
-
+	
 }
 
 /*竖屏*/

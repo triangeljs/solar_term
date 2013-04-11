@@ -110,18 +110,35 @@ $(function(){
 			var h = (clientH - $('#itemBox').height()) / 2;
 			$('#itemBox').html(Template).show().css({ 'left': w, 'top': h });
 			$('body').css({ 'background-image': 'none' })
+			
+			var ts = 0;
+			$('#itemBox div').on('touchstart', function(e) {
+				var tEvt = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+				ts = tEvt.pageY;
+			})
+			
 			$('#itemBox div').on('touchmove', function(e) {
-				$(this).css({ 'overflow': 'scroll'});
+				var tEvt = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+				var st = $(this).scrollTop();
+				$(this).scrollTop(st - tEvt.pageY + ts);
 			});
+			
+			
 		}
 	}
 	
 	//启动
 	var run = function() {
-		$('body').on('touchmove', function(e) {e.preventDefault();e.stopPropagation();return false;});
-		step1();
+		$('body').on('touchmove',forbidMove);
+		step4();
 	};
 	run();
+	
+	//禁止滑动
+	function forbidMove(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	}
 	
 	//节气菜单唤出
 	function discOut(e) {
