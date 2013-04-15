@@ -17,6 +17,7 @@
 <script src="lib/jquery-1.9.1.min.js"></script>
 <script src="lib/underscore-min.js"></script>
 <script src="lib/backbone-min.js"></script>
+<script src="js/solat.js"></script>
 <script src="js/style.js"></script>
 </head>
 
@@ -30,18 +31,18 @@
   </div>
 </script>
 <script type="text/template" id="info1Template">
-	<div id="info1">
+	<div id="info1">		
 		<h1>今天是</h1>
-		<h2>3月29日</h2>
-		<h3>已过谷雨</h3>
+		<h2><%= month %>月<%= date %>日</h2>
+		<h3><%= jieqi %></h3>
 	</div>
 </script>
 <script type="text/template" id="info2Template">
 	<div id="info2">
 		<h1>距离</h1>
-		<h2>立夏</h2>
-		<h3>5月12日</h3>
-		<h4>还有34天</h4>
+		<h2><%= njieqi %></h2>
+		<h3><%= nmonth %>月<%= ndate %>日</h3>
+		<h4>还有<%= ts %>天</h4>
 	</div>
 </script>
 <script type="text/template" id="discTemplate">

@@ -29,7 +29,8 @@ $(function(){
 	
 	var step2 = function() {
 		// init
-		var Template = _.template($("#info1Template").html());
+		console.log(jieqi());
+		var Template = _.template($("#info1Template").html(),jieqi());
 		$('#wrapper').html(Template);
 		
 		// animate
@@ -45,7 +46,7 @@ $(function(){
 	
 	var step3 = function() {
 		// init
-		var Template = _.template($("#info2Template").html());
+		var Template = _.template($("#info2Template").html(),jieqi());
 		$('#wrapper').html(Template);
 		
 		// animate
@@ -223,7 +224,68 @@ $(function(){
 	//启动
 	var run = function() {
 		$(document).on('touchmove',forbidMove);
-		step4();
+		step1();
 	};
 	run();
 });
+
+function jieqi() {
+	var myDate = new Date();
+	var year = myDate.getFullYear();
+	var cMonth = myDate.getMonth() + 1;
+	var pMonth = (cMonth + 11) % 12;
+	var nMonth = (cMonth + 1) % 12;
+	var date = myDate.getDate();
+	var arrP = solar_term[year][pMonth];
+	var arrC = solar_term[year][cMonth];
+	var arrN = solar_term[year][nMonth];
+	
+	var str = '';
+	var njieqi = '';
+	var ndate;
+	var timestamp = myDate.getTime();
+	var upperDate = 0;
+	
+	if (date < arrC[0].d) {
+		str = '已过' + solar_term_info[arrP[1].id].title;
+		upperDate = new Date(year, cMonth - 1, arrC[0].d);
+		njieqi = solar_term_info[arrC[0].id].title;
+		nmonth = cMonth;
+		ndate = arrC[0].d;
+	} else if (date == arrC[0].d) {
+		str = solar_term_info[arrC[0].id].title;
+		upperDate = new Date(year, cMonth - 1, arrC[1].d);
+		njieqi = solar_term_info[arrC[1].id].title;
+		nmonth = cMonth;
+		ndate = arrC[1].d
+	} else if (date < arrC[1].d) {
+		str = '已过' + solar_term_info[arrC[0].id].title;
+		upperDate = new Date(year, cMonth - 1, arrC[1].d);
+		njieqi = solar_term_info[arrC[1].id].title;
+		nmonth = cMonth;
+		ndate = arrC[1].d
+	} else if (date == arrC[1].d) {
+		str = solar_term_info[arrC[1].id].title;
+		njieqi = solar_term_info[arrN[0].id].title;
+		nmonth = nMonth;
+		ndate = arrN[0].d
+		if (12 == cMonth) {
+			upperDate = new Date(year + 1, nMonth - 1, arrN[0].d);
+		} else {
+			upperDate = new Date(year, nMonth - 1, arrN[0].d);
+		}
+	} else {
+		str = '已过' + solar_term_info[arrC[1].id].title;
+		njieqi = solar_term_info[arrN[0].id].title;
+		nmonth = nMonth;
+		ndate = arrN[0].d
+		if (12 == cMonth) {
+			upperDate = new Date(year + 1, nMonth - 1, arrN[0].d);
+		} else {
+			upperDate = new Date(year, nMonth - 1, arrN[0].d);
+		}
+	}
+	
+	timestamp = upperDate.getTime() - timestamp;
+	return { 'month': cMonth, 'date': date, 'jieqi': str, 'nmonth': nmonth, 'ndate': ndate, 'njieqi': njieqi, 'ts': Math.ceil(timestamp / 86400000) };
+}
