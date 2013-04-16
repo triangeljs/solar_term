@@ -1,4 +1,10 @@
 @charset "utf-8";
+/*竖屏*/
+@media screen and (orientation:portrait) {
+	body { background: #000 url(../images/app.png) no-repeat center center; display: block; width: 768px; height: 1024px; overflow: hidden; opacity: 0.5; }
+	body div { display: none; }
+}
+
 /*横屏*/
 @media screen and (orientation:landscape) {  
 	* { margin: 0px; padding: 0px; }
@@ -37,7 +43,7 @@
 	}
 	
 	/*第二步*/
-	#info1 { background: url(../images/b_3.gif) no-repeat center center; text-align: center; width: 600px; height: 600px; position: absolute; left: 212px; top: 84px; z-index: 50;
+	#info1 { background: url(../images/b_3.gif) no-repeat center center; text-align: center; width: 600px; height: 600px; position: absolute; left: 212px; top: 40px; z-index: 50;
 		-webkit-transform-origin: center center;
 		-webkit-transform: scale3d(0.1,0.1,0.1);
 	}
@@ -53,7 +59,7 @@
 	}
 	
 	/*第三步*/
-	#info2 { background: url(../images/b_3.gif) no-repeat center center; text-align: center; width: 600px; height: 600px; position: absolute; left: 212px; top: 84px; z-index: 50;
+	#info2 { background: url(../images/b_3.gif) no-repeat center center; text-align: center; width: 600px; height: 600px; position: absolute; left: 212px; top: 40px; z-index: 50;
 		-webkit-transform-origin: center center;
 	}
 	#info2, #info2 h1, #info2 h2, #info2 h3, #info2 h4 { -webkit-transition-timing-function: linear; -webkit-transition-duration: 0.5s; }
@@ -71,7 +77,9 @@
 	}
 	
 	/*第四步*/
-	#discBox { display: table-cell; width: 600px; height: 600px; overflow: hidden; position: relative; z-index: 90; }
+	#search { position: absolute; top: 60px; left: 60px; }
+	#about { position: absolute; top: 60px; right: 60px; }
+	#discBox { display: table-cell; width: 600px; height: 600px; overflow: hidden; position: absolute; z-index: 90; }
 	#beautifyDisc { background: url(../images/b_6.gif) no-repeat center center; width: 300px; height: 300px; opacity: 0; position: absolute; left: 150px; top: 150px; z-index: 93;
 		-webkit-transition-timing-function: linear;
 		-webkit-transform: scale3d(0.8,0.8,0.8);
@@ -103,10 +111,6 @@
 	#itemBox .itemDoc div { float: left; width: 680px; height: 300px; overflow: auto; position: absolute; opacity: 0;
 		-webkit-transition-timing-function: linear;
 	}
-	#itemBox .itemDoc p { font-size: 20px; line-height: 30px; text-indent: 30px; }
+	#itemBox .itemDoc p { font-size: 20px; line-height: 30px; text-indent: 40px; }
 }
 
-/*竖屏*/
-@media screen and (orientation:portrait) {
-	body * { display: none; }
-}
