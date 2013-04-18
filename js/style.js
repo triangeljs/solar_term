@@ -96,12 +96,6 @@ $(function(){
 					'-webkit-transform': 'translate3d(0px, ' + (clientH / 2) + 'px,0px) scale3d(0.3,0.3,0.3)'
 				})
 				step6();
-				
-				//事件绑定
-				$('#search').on('mouseup touchend', discOut);
-				$('#about').on('mouseup touchend', discOut);
-				$('#beautifyDisc').on('mouseup touchend', discOut);
-				$('#coverBox').on('mouseup touchend', coverBoxOut);
 			})
 		}
 		
@@ -111,6 +105,12 @@ $(function(){
 			var h = (clientH - $('#itemBox').height()) / 2;
 			$('#itemBox').html(Template).show().css({ 'left': w, 'top': h });
 			$('body').css({ 'background-image': 'none' });
+			
+			//事件绑定
+			$('#search').on('mouseup touchend', searchHandle);
+			$('#about').on('mouseup touchend', aboutHandle);
+			$('#beautifyDisc').on('mouseup touchend', discOut);
+			$('#coverBox').on('mouseup touchend', coverBoxOut);
 			
 			//调整正文位置
 			var curInt = 0;
@@ -155,13 +155,15 @@ $(function(){
 		$('#discBox').css({ '-webkit-transform': 'translate3d(0px, ' + (clientH / 2) + 'px,0px) scale3d(1,1,1)' });
 	}
 	
-	//节气菜单退出
+	//背景黑幕退出
 	function coverBoxOut(e) {
 		e.preventDefault();
 		e.stopPropagation();
-		$('#coverBox').hide();
+		$('#coverBox').css({ 'z-index': '70' }).hide();
 		$('#disc span').off('mouseup touchend');
 		$('#discBox').css({ '-webkit-transform': 'translate3d(0px, ' + (clientH / 2) + 'px,0px) scale3d(0.3,0.3,0.3)' });
+		$('#searchBox').css({ '-webkit-transition-timing-function': 'linear', '-webkit-transition-duration': '0.2s', '-webkit-transform': 'translate3d(0px, 0px,0px)' });
+		$('#aboutBox').css({ '-webkit-transition-timing-function': 'linear', '-webkit-transition-duration': '0.2s', '-webkit-transform': 'translate3d(0px, 0px,0px)' });
 	}
 	
 	//节气操作
@@ -336,10 +338,27 @@ $(function(){
 		return { 'title': solar_term_info[id].title, 'jieshao': solar_term_info[id].jieshao.ctn, 'youlai': solar_term_info[id].youlai.ctn, 'xisu': solar_term_info[id].xisu.ctn, 'yangsheng': solar_term_info[id].yangsheng.ctn }
 	}
 	
+	//查询操作
+	function searchHandle(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$('#searchBox').css({ '-webkit-transition-timing-function': 'linear', '-webkit-transition-duration': '0.2s', '-webkit-transform': 'translate3d(490px, 0px,0px)' });
+		$('#coverBox').css({ 'z-index': '90'}).show();
+	}
+	
+	//关于我们
+	function aboutHandle(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$('#aboutBox').css({ '-webkit-transition-timing-function': 'linear', '-webkit-transition-duration': '0.2s', '-webkit-transform': 'translate3d(-490px, 0px,0px)' });
+		$('#coverBox').css({ 'z-index': '90'}).show();
+	}
+	
 	//启动
 	var run = function() {
 		$(document).on('touchmove',forbidMove);
 		step1();
+		document.body.scroll = 'no';
 	};
 	run();
 });
