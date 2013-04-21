@@ -116,10 +116,22 @@
 	
 	/*查询*/
 	#searchBox { background: #EDEAE4; width: 490px; height: 100%; position: absolute; top: 0px; left: -490px; z-index: 100; }
+	#searchBox h1 { font-size: 20px; line-height: 68px; text-align: center; background: url(../images/b_8.png) no-repeat center center; margin-top: 20px; }
+	.timeChoice { background: url(../images/b_9.png); width: 400px; height: 150px; overflow: hidden; margin: 0px auto; }
+	.timeChoice ul { font-size: 20px; line-height: 50px; text-align: center; float: left; width: 200px; margin-top: 50px; }
+	.timeResult { font-size: 20px; line-height: 30px; width: 350px; height: 30px; overflow: hidden; margin: 20px auto 0px auto; }
+	.timeResult dt { float: left; width: 110px; }
+	.timeResult dd { color: #D4916C; float: left; width: 240px; }
+	.timeResult dd span { color: #CEC3AE; margin: 0px 10px; }
+	.solarTermTable { background: rgb(255,255,255) url(../images/b_10.png); box-shadow: inset 0px 0px 3px rgba(0,0,0,0.8); width: 395px; height: 263px; margin: 0px auto;
+		-webkit-box-shadow:inset 0px 0px 3px rgba(0,0,0,0.8);
+	}
+	.solarTermTable li { font-size: 14px; line-height: 24px; text-align: center; float: left; width: 66px; height: 57px; overflow: hidden; padding-top: 9px; }
+	.solarTermTable .cur { color: #D4916C; background: #F9E9E0; width: 64px; height: 54px; margin: 1px 0px 0px 1px; }
 	
 	/*关于我们*/
 	#aboutBox { background: #EDEAE4; width: 490px; height: 100%; position: absolute; top: 0px; right: -490px; z-index: 100; }
-	#aboutBox h1 { font-size: 20px; line-height: 68px; text-align: center; background: url(../images/b_8.png) no-repeat center center; }
+	#aboutBox h1 { font-size: 20px; line-height: 68px; text-align: center; background: url(../images/b_8.png) no-repeat center center; margin-top: 20px; }
 	.shareBox { text-align: center; width: 420px; height: 85px; overflow: hidden; margin: 0px auto 30px auto; }
 	.shareBox a { box-shadow: inset 1px 1px 4px rgba(0,0,0,0.3); border-radius: 100%; float: left; width: 85px; height: 85px; overflow: hidden; margin: 0px 10px; }
 	.sina { background: rgb(212,144,107) url(../images/f_1.png) no-repeat center center;  }
@@ -131,4 +143,3 @@
 	.teamBox { font-size: 16px; color: #000; line-height: 32px; width: 400px; margin: 0px auto 30px auto; }
 	.copyrightBox { line-height: 24px; border-top: 1px solid #CEC3AE; text-align: center; width: 400px; margin: 0px auto; padding-top: 30px; }
 }
-
