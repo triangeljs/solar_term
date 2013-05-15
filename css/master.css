@@ -1,0 +1,112 @@
+@charset "utf-8";
+/*竖屏*/
+@media screen and (orientation:portrait) {
+	body { background: #000 url(../images/app.png) no-repeat center center; display: block; width: 768px; height: 1024px; overflow: hidden; opacity: 0.5; }
+	body div { display: none; }
+}
+
+/*横屏*/
+@media screen and (orientation:landscape) {
+	* { margin: 0px; padding: 0px; }
+	html { width: 100%; height: 100%; overflow: hidden; }
+	body { font-family: "宋体", Arial, Helvetica, sans-serif; font-size: 12px; color: #000; line-height: 20px; background: url(../images/b_1.png); width: 100%; height: 100%;  overflow: hidden; }
+	a { color: #000; text-decoration: none; }
+	ol, ul, li { list-style-type: none; }
+	img { border: 0px; }
+	#wrap { width: 100%; height: 100%; position: relative;
+		display: -webkit-box;
+		-webkit-box-pack: center;
+		-webkit-box-align: center;
+		-webkit-backface-visibility: hidden;
+	}
+	
+	/*开始*/
+	.logo { background: #F2F0ED url(../images/logo.png) no-repeat center center; width: 100%; height: 530px; }
+	.copyright { font-family: Arial, Helvetica, sans-serif; line-height: 26px; text-align: center; width: 100%; height: 52px; overflow: hidden; position: absolute; left: 0px; bottom: 30px; }
+	
+	/*场景一*/
+	#synopsis { background: #F2F0ED; width: 100%; height: 530px; }
+	#synopsis h1 { font-size: 52px; line-height: 176px; text-align: center; padding-top: 40px; opacity: 0;
+		-webkit-transition: all 0.5s linear;
+	}
+	#synopsis div { font-size: 16px; line-height: 32px; text-indent: 30px; width: 710px; margin: 0px auto 90px auto;
+		-webkit-transition: all 0.5s linear;
+	}
+	#synopsis p { font-weight: bold; font-size: 16px; color: #FFF; line-height: 55px; background: url(../images/b_2.png); text-align: center; width: 59px; height: 55px; margin: 0px auto; cursor: pointer;
+		-webkit-transition-timing-function: linear;
+	}
+	
+	/*场景二*/
+	#preSolarTerms { background: #FFF url(../images/b_3.png) no-repeat center center; text-align: center; border: 10px solid #231F20; border-radius: 100%; width: 630px; height: 630px;
+		-webkit-transform: scale3d(0.1,0.1,0.1);
+		-webkit-transition-duration: 0.5s;
+	}
+	#preSolarTerms h1, #preSolarTerms h2, #preSolarTerms h3 { opacity: 0; -webkit-transition: all 0.5s linear; }
+	#preSolarTerms h1 { font-size: 40px; line-height: 40px; padding-top: 250px;
+		-webkit-transition-delay: 0.5s;
+	}
+	#preSolarTerms h2 { font-size: 78px; line-height: 140px;
+		-webkit-transition-delay: 1s;
+	}
+	#preSolarTerms h3 { font-size: 40px; line-height: 40px;
+		-webkit-transition-delay: 1.5s;
+	}
+	
+	/*场景三*/
+	#nextSolarTerms { background: #FFF url(../images/b_3.png) no-repeat center center; text-align: center; border: 10px solid #231F20; border-radius: 100%; width: 630px; height: 630px;
+		-webkit-transition: all 0.5s linear;
+	}
+	#nextSolarTerms h1, #nextSolarTerms h2, #nextSolarTerms h3, #nextSolarTerms h4 { opacity: 0; -webkit-transition: all 0.5s linear; }
+	#nextSolarTerms h1 { font-size: 36px; line-height: 36px; padding-top: 200px;
+		-webkit-transition-delay: 0.5s;
+	}
+	#nextSolarTerms h2 { font-size: 84px; line-height: 144px;
+		-webkit-transition-delay: 1s;
+	}
+	#nextSolarTerms h3 { font-size: 78px; line-height: 78px;
+		-webkit-transition-delay: 1.5s;
+	}
+	#nextSolarTerms h4 { font-size: 36px; line-height: 104px;
+		-webkit-transition-delay: 2s;
+	}
+	
+	/*场景四*/
+	#discBox { border-radius: 100%; width: 650px; height: 650px; position: relative; z-index: 90; }
+	#beautifyDisc { border: 20px solid #231F20; border-radius: 100%; width: 340px; height: 340px; position: absolute; z-index: 90;
+		-webkit-transition: all 0.5s linear;
+		-webkit-transform: matrix3d(0.3,0,0,0,0,0.3,0,0,0,0,1,0,135,135,0,1);
+		-webkit-transform-origin: center center;
+	}
+	#triangle-up { border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 20px solid #231F20; width: 0; height: 0; opacity: 0; position: absolute; left: 305px; top: 140px; z-index: 80;
+		-webkit-transition: all 0.5s linear;
+		-webkit-transition-delay: 1s;
+	}
+	#disc { background: url(../images/b_4.png) no-repeat center center; border: 10px solid #231F20; border-radius: 100%; width: 630px; height: 630px; opacity: 0; position: absolute; z-index: 70;
+		-webkit-transition: all 0.5s linear;
+		-webkit-transform: matrix3d(0.6,0,0,0,0,0.6,0,0,0,0,1,0,0,0,0,1);
+		-webkit-transform-origin: center center;
+	}
+	#disc span { font-size: 30px; line-height: 30px; width: 30px; padding-top: 40px; position: absolute; left: 300px; top: 0px;
+		-webkit-transition-timing-function: linear;
+		-webkit-transform-style: preserve-3d;
+		-webkit-transform-origin: 50% 315px;
+	}
+	
+	/*场景五*/
+	#item { width: 100%; height: 100%; position: absolute; z-index: 80px; }
+	#item h1 { font-size: 52px; line-height: 80px; text-align: center; margin-top: 40px; }
+	#item h2 { font-size: 14px; line-height: 30px; text-align: center; margin-bottom: 25px; }
+	#item h2 img { margin: -4px 10px 0px 0px; }
+	.itemBg { background: #F2F0ED; width: 100%; height: 465px; overflow: hidden; position: absolute; }
+	.itemDoc { font-size: 16px; line-height: 30px; width: 100%; height: 240px; overflow: hidden; margin: 60px 0px; position: relative; }
+	.itemDoc div { width: 700px; height: 240px; overflow: hidden; position: absolute; }
+	.itemDoc div p { text-indent: 30px; }
+	.itemNav { clear: both; width: 316px; height: 55px; overflow: hidden; margin: 0px auto; }
+	.itemNav li { font-size: 16px; line-height: 55px; text-align: center; float: left; width: 59px; height: 55px; margin: 0px 10px; }
+	.itemNav .cur { color: #FFF; background: url(../images/b_2.png); width: 59px; height: 55px; }
+	
+	/*背景黑幕*/
+	#coverBox { background:rgba(0,0,0,0.5); display: none; width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 70; }
+	
+}
+

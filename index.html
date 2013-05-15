@@ -13,32 +13,37 @@
 <meta http-equiv="Cache-Control" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 
-<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/master.css" rel="stylesheet" type="text/css">
 <script src="lib/jquery-1.9.1.min.js"></script>
 <script src="lib/underscore-min.js"></script>
-<script src="lib/backbone-min.js"></script>
 <script src="js/solat.js"></script>
-<script src="js/style.js"></script>
+<script src="js/master.js"></script>
 </head>
 
 <body>
-<div id="wrapper"></div>
+<div id="wrap">
+	<div class="logo"></div>
+  <div class="copyright">
+  	<p>版权所有 中国互联网新闻中心</p>
+    <p>Copyright © China.org.cn. All Rights Reserved.</p>
+  </div>
+</div>
 <script type="text/template" id="synopsisTemplate">
 	<div id="synopsis">
   	<h1>什么是“节气”？</h1>
     <div>节气指二十四时节和气候，是中国古代订立的一种用来指导农事的补充历法。由于中国农历是一种“阴阳合历”，即根据太阳也根据月亮的运行制定的，因此不能完全反映太阳运行周期，但中国又是一个农业社会，农业需要严格了解太阳运行情况，农事完全根据太阳进行，所以在历法中又加入了单独反映太阳运行周期的“二十四节气”，用作确定闰月的标准。中国正统二十四节气以河南为本。</div>
-    <p><img src="images/b_2.gif" width="50" height="50"></p>
+    <p>进入</p>
   </div>
 </script>
 <script type="text/template" id="info1Template">
-	<div id="info1">		
+	<div id="preSolarTerms">		
 		<h1>今天是</h1>
 		<h2><%= month %>月<%= date %>日</h2>
 		<h3><%= jieqi %></h3>
 	</div>
 </script>
 <script type="text/template" id="info2Template">
-	<div id="info2">
+	<div id="nextSolarTerms">
 		<h1>距离</h1>
 		<h2><%= njieqi %></h2>
 		<h3><%= nmonth %>月<%= ndate %>日</h3>
@@ -47,106 +52,7 @@
 </script>
 <script type="text/template" id="discTemplate">
 	<div id="coverBox"></div>
-	<div id="search"><img src="images/search.png"></div>
-	<div id="searchBox">
-		<h1>日期速查</h1>
-		<div class="timeChoice">
-			<ul>
-				<li>立春</li>
-				<li>雨水</li>
-				<li>惊蛰</li>
-				<li>春分</li>
-				<li>清明</li>
-				<li>谷雨</li>
-				<li>立夏</li>
-				<li>小满</li>
-				<li>芒种</li>
-				<li>夏至</li>
-				<li>小暑</li>
-				<li>大暑</li>
-				<li>立秋</li>
-				<li>处暑</li>
-				<li>白露</li>
-				<li>秋分</li>
-				<li>寒露</li>
-				<li>霜降</li>
-				<li>立冬</li>
-				<li>小雪</li>
-				<li>大雪</li>
-				<li>冬至</li>
-				<li>小寒</li>
-				<li>大寒</li>
-			</ul>
-			<ul>
-				<li>2013</li>
-				<li>2014</li>
-				<li>2015</li>
-				<li>2016</li>
-				<li>2017</li>
-				<li>2018</li>
-			</ul>
-		</div>
-		<dl class="timeResult">
-			<dt>速查结果：</dt>
-			<dd>立夏<span>/</span>2013年<span>/</span>4月13日</dd>
-		</dl>
-		<h1>2013节气表</h1>
-		<ul class="solarTermTable">
-			<li>立春<br>2.4</li>
-			<li class="cur">立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-			<li>立春<br>2.4</li>
-		</ul>
-	</div>
-	<div id="about"><img src="images/about.png"></div>
-	<div id="aboutBox">
-		<h1>评论分享</h1>
-		<div class="shareBox">
-			<a href="#" class="sina"></a>
-			<a href="#" class="tengxun"></a>
-			<a href="#" class="weixin"></a>
-			<a href="#" class="renren"></a>
-		</div>
-		<h1>精彩推荐</h1>
-		<ul class="recommendBox">
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-		</ul>
-		<h1>策划团队</h1>
-		<div class="teamBox">
-			<p>监制：詹海涛</p>
-			<p>策划：胡俊峰 陶一辉 杨帆 王倩</p>
-			<p>设计：陶一辉 王倩</p>
-			<p>制作：杨帆</p>
-		</div>
-		<div class="copyrightBox">
-			<p>版权所有 中国互联网新闻中心</p>
-			<p>Copyright © China.org.cn. All Rights Reserved.</p>
-		</div>
-	</div>
-	<div id="itemBox"></div>
+	<div id="item"></div>
 	<div id="discBox">
 		<div id="beautifyDisc"></div>
 		<div id="triangle-up"></div>
@@ -155,24 +61,21 @@
 </script>
 <script type="text/template" id="itemTemplate">
 	<h1><%= title %></h1>
-	<ul class="itemNav">
-		<li class="cur">介绍</li>
-		<li>由来</li>
-		<li>习俗</li>
-		<li>养生</li>
-	</ul>
-	<div class="itemDoc">
-		<div><%= jieshao %></div>
-		<div><%= youlai %></div>
-		<div><%= xisu %></div>
-		<div><%= yangsheng %></div>
+	<h2><img src="images/b_5.png" align="absmiddle"><%= time %></h2>
+	<div class="itemBg">
+		<div class="itemDoc">
+			<div><%= jieshao %></div>
+			<div><%= youlai %></div>
+			<div><%= xisu %></div>
+			<div><%= yangsheng %></div>
+		</div>
+		<ul class="itemNav">
+			<li class="cur">介绍</li>
+			<li>由来</li>
+			<li>习俗</li>
+			<li>养生</li>
+		</ul>
 	</div>
-</script>
-<script type="text/template" id="searchTemplate">
-	
-</script>
-<script type="text/template" id="aboutTemplate">
-	
 </script>
 </body>
 </html>
