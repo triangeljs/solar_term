@@ -73,10 +73,14 @@ $(function(){
 		}
 		$('#disc').prepend(temp.join(''));
 		
+		$('#searchBox').css({'left': (clientW - 904) / 2, 'top': '-710px'});
+		$('#aboutBox').css({'left': (clientW - 413) / 2, 'top': '-705px'});
+		
 		$('#beautifyDisc').css({ '-webkit-transform': 'matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,135,135,0,1)' });
+		$('#disc').css({ '-webkit-transform': 'scale3d(1,1,1) rotate('+ curDeg +'deg)', 'opacity': '1' });
 		$('#beautifyDisc').on('webkitTransitionEnd', function(){
 			$(this).off('webkitTransitionEnd');
-			$('#disc').css({ '-webkit-transform': 'scale3d(1,1,1) rotate('+ curDeg +'deg)', 'opacity': '1' });
+			//$('#disc').css({ '-webkit-transform': 'scale3d(1,1,1) rotate('+ curDeg +'deg)', 'opacity': '1' });
 			$('#triangle-up').css({ '-webkit-transform': 'translate3d(0px,-20px,0px)', 'opacity': '1' });
 		});
 		$('#triangle-up').on('webkitTransitionEnd', function(){
@@ -103,8 +107,94 @@ $(function(){
 		
 		$('#coverBox').on('mouseup touchend', coverBoxOut);
 		$('#discBox').on('mouseup touchend', discHandle);
+		$('#searchBtn').on('mouseup touchend', searchHandle);
+		$('#aboutBtn').on('mouseup touchend', aboutHandle);
+		$('#solarBtn').on('mouseup touchend', solarBtnHandle);
+	}
+
+	//节气菜单唤出
+	function discHandle(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$(this).off('mouseup touchend');
+		$('#coverBox').show();
+		$('#disc span').on('mouseup touchend', choiceSolarTerm);
+		$('#discBox').css({ '-webkit-transform': 'translate3d(0px, ' + (clientH / 2) + 'px,0px) scale3d(1,1,1)' });
 	}
 	
+	//搜索菜单唤出
+	function searchHandle(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		getSolarSearch();
+		$('#discBox').css({ 'z-index': '60' });
+		$('#coverBox').show(0, function() {
+			$('#searchBox').css({ '-webkit-transform': 'translate3d(0px, 710px, 0px)' });
+		});
+	}
+	
+	//关于我们菜单唤出
+	function aboutHandle(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$('#discBox').css({ 'z-index': '60' });
+		$('#coverBox').show(0, function() {
+			$('#aboutBox').css({ '-webkit-transform': 'translate3d(0px, 705px, 0px)' });
+		});
+	}
+	
+	//背景黑幕退出
+	function coverBoxOut(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$('#discBox').css({ 'z-index': '90' });
+		$('#disc span').off('mouseup touchend');
+		$('#discBox').on('mouseup touchend', discHandle);
+		$('#discBox').css({ '-webkit-transform': 'translate3d(0px, ' + (clientH / 2) + 'px,0px) scale3d(0.3,0.3,0.3)' });
+		$('#aboutBox').css({ '-webkit-transform': 'translate3d(0px, 0px, 0px)' });
+		$('#searchBox').css({ '-webkit-transform': 'translate3d(0px, 0px, 0px)' });
+		$('#coverBox').hide();
+	}
+	
+	//节气查询结果
+	function solarBtnHandle(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		var select1 = $("#select1").val();
+		var select2 = $("#select2").val();
+		for(var i=0; i<solar_term_info.length;i++){
+			if(solar_term_info[i].title == select2){
+				var myDate = new Date();
+				var timestamp = myDate.getTime();
+				var upperDate = new Date(select1, solar_term_info[i].riqi[select1]['m'] - 1, solar_term_info[i].riqi[select1]['d']);
+				var upperTimeStamp = upperDate.getTime();
+				if(timestamp > upperTimeStamp){
+					$('#solarInfo').show().html(select1 +'年'+ solar_term_info[i].riqi[select1]['m'] +'月'+ solar_term_info[i].riqi[select1]['d'] +'日');
+				}else{
+					var a = Math.ceil((upperTimeStamp - timestamp) / 86400000);
+					$('#solarInfo').show().html(select1 +'年'+ solar_term_info[i].riqi[select1]['m'] +'月'+ solar_term_info[i].riqi[select1]['d'] +'日，还有'+ a +'天');
+				}
+			}
+		}
+	}
+	
+	//选择24节气
+	function choiceSolarTerm(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		var nextInt = $(this).index();
+		curDeg += discArray(cur, nextInt);
+		cur = nextInt;
+		$('#disc').css({ '-webkit-transform': 'scale3d(1,1,1) rotate('+ curDeg +'deg)' });
+		$('#disc').on('webkitTransitionEnd', function(){
+			$(this).off('webkitTransitionEnd');
+			coverBoxOut(e);
+			var Template = _.template($("#itemTemplate").html(),jieqiInfo(curJqId));
+			$('#item').html(Template);
+			jieqiReveal();
+		})
+	}
+
 	//节气展示
 	function jieqiReveal(){
 		//调整正文位置
@@ -180,43 +270,6 @@ $(function(){
 		}
 		
 		return { 'title': solar_term_info[id].title, 'jieshao': solar_term_info[id].jieshao.ctn, 'youlai': solar_term_info[id].youlai.ctn, 'xisu': solar_term_info[id].xisu.ctn, 'yangsheng': solar_term_info[id].yangsheng.ctn, 'time': timeTxt }
-	}
-	
-	//节气菜单唤出
-	function discHandle(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		$(this).off('mouseup touchend');
-		$('#coverBox').show();
-		$('#disc span').on('mouseup touchend', choiceSolarTerm);
-		$('#discBox').css({ '-webkit-transform': 'translate3d(0px, ' + (clientH / 2) + 'px,0px) scale3d(1,1,1)' });
-	}
-	
-	//选择24节气
-	function choiceSolarTerm(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		var nextInt = $(this).index();
-		curDeg += discArray(cur, nextInt);
-		cur = nextInt;
-		$('#disc').css({ '-webkit-transform': 'scale3d(1,1,1) rotate('+ curDeg +'deg)' });
-		$('#disc').on('webkitTransitionEnd', function(){
-			$(this).off('webkitTransitionEnd');
-			coverBoxOut(e);
-			var Template = _.template($("#itemTemplate").html(),jieqiInfo(curJqId));
-			$('#item').html(Template);
-			jieqiReveal();
-		})
-	}
-	
-	//背景黑幕退出
-	function coverBoxOut(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		$('#coverBox').hide();
-		$('#disc span').off('mouseup touchend');
-		$('#discBox').on('mouseup touchend', discHandle);
-		$('#discBox').css({ '-webkit-transform': 'translate3d(0px, ' + (clientH / 2) + 'px,0px) scale3d(0.3,0.3,0.3)' });
 	}
 	
 	//获取转盘运动
@@ -367,4 +420,20 @@ function getSolarTerms() {
 	}
 	timestamp = upperDate.getTime() - timestamp;
 	return { 'month': cMonth, 'date': date, 'jieqi': str, 'nmonth': nmonth, 'ndate': ndate, 'njieqi': njieqi, 'ts': Math.ceil(timestamp / 86400000) };
+}
+
+//搜索节气展示
+function getSolarSearch() {
+	var myDate = new Date();
+	var year = myDate.getFullYear();
+	var timeTemp = [];
+	var solarTemp = [];
+	for(i=0;i<solar_term_info.length;i++) {
+		timeTemp.push('<li>'+ solar_term_info[i].title +'<br><span>'+ solar_term_info[i].riqi[year]['m'] +'月'+ solar_term_info[i].riqi[year]['d'] +'日</span></li>');
+		solarTemp.push('<option value="'+ solar_term_info[i].title +'">'+ solar_term_info[i].title +'</option>');
+	}
+	$('.solarTermTable').html(timeTemp.join(''));
+	$('#select2').html(solarTemp.join(''));
+	$('.searchRight h1 span').html(year);
+	$('#solarInfo').hide().html();
 }

@@ -93,20 +93,54 @@
 	}
 	
 	/*场景五*/
-	#item { width: 100%; height: 100%; position: absolute; z-index: 80px; }
+	#item { width: 100%; height: 100%; position: absolute; z-index: 60; }
 	#item h1 { font-size: 52px; line-height: 80px; text-align: center; margin-top: 40px; }
 	#item h2 { font-size: 14px; line-height: 30px; text-align: center; margin-bottom: 25px; }
 	#item h2 img { margin: -4px 10px 0px 0px; }
 	.itemBg { background: #F2F0ED; width: 100%; height: 465px; overflow: hidden; position: absolute; }
 	.itemDoc { font-size: 16px; line-height: 30px; width: 100%; height: 240px; overflow: hidden; margin: 60px 0px; position: relative; }
 	.itemDoc div { width: 700px; height: 240px; overflow: hidden; position: absolute; }
+	.itemDoc img { float: left; margin-right: 15px; }
 	.itemDoc div p { text-indent: 30px; }
 	.itemNav { clear: both; width: 316px; height: 55px; overflow: hidden; margin: 0px auto; }
 	.itemNav li { font-size: 16px; line-height: 55px; text-align: center; float: left; width: 59px; height: 55px; margin: 0px 10px; }
 	.itemNav .cur { color: #FFF; background: url(../images/b_2.png); width: 59px; height: 55px; }
 	
 	/*背景黑幕*/
-	#coverBox { background:rgba(0,0,0,0.5); display: none; width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 70; }
+	#coverBox { background:rgba(0,0,0,0.5); display: none; width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 80; }
 	
+	/*搜索按钮*/
+	#searchBtn { background: #000 url(../images/b_7.png) no-repeat center center; border-radius: 100%; width: 40px; height: 40px; position: absolute; z-index: 70; left: 70px; top: 75px; }
+	#searchBox { background: url(../images/b_10.png); width: 904px; height: 710px; overflow: hidden; position: absolute; z-index: 100;
+		-webkit-transition: all 0.5s linear;
+		-webkit-transform: translate3d(0px, -710px, 0px);
+	}
+	.searchLeft { float: left; width: 200px; margin: 115px 0px 0px 70px; }
+	.searchLeft h1 { font-size: 20px; line-height: 30px; background: url(../images/b_9.png) no-repeat left center; text-indent: 20px; margin-bottom: 20px; }
+	.searchLeft select { font-size: 14px; line-height: 36px; border: 2px solid #CFC4AF; clear: both; width: 196px; height: 36px; margin-bottom: 15px; }
+	#solarInfo { font-size: 14px; line-height: 30px; text-align: center; display: none; clear: both; width: 100%; margin-bottom: 15px; }
+	.searchLeft button { font-size: 20px; color: #FFF; line-height: 50px; background-color: #000; text-align: center; border-radius: 5px; clear: both; width: 200px; }
+	.searchRight { float: right; width: 500px; margin: 115px 70px 0px 0px; }
+	.searchRight h1 { font-size: 36px; line-height: 36px; text-align: center; margin-bottom: 30px; }
+	.solarTermTable { border-bottom: 1px solid #CFC4AF; border-right: 1px solid #CFC4AF; width: 486px; height: 445px; }
+	.solarTermTable li { font-size: 20px; line-height: 30px; text-align: center; border-left: 1px solid #CFC4AF; border-top: 1px solid #CFC4AF; float: left; width: 80px; height: 85px; padding-top: 25px; }
+	.solarTermTable li span { font-size: 12px; }
+	
+	/*关于我们*/
+	#aboutBtn { background: #000 url(../images/b_6.png) no-repeat center center; border-radius: 100%; width: 40px; height: 40px; position: absolute; z-index: 70; right: 70px; top: 75px; }
+	#aboutBox { background: url(../images/b_8.png); width: 413px; height: 705px; overflow: hidden; position: absolute; z-index: 100;
+		-webkit-transition: all 0.5s linear;
+		-webkit-transform: translate3d(0px, -705px, 0px);
+	}
+	#aboutBox h1 { font-size: 20px; line-height: 30px; background: url(../images/b_9.png) no-repeat left center; text-indent: 20px; width: 295px; margin: 0px auto 20px auto; }
+	.shareBox { text-align: center; width: 332px; height: 63px; overflow: hidden; margin: 0px auto 30px auto; }
+	.shareBox a { float: left; width: 63px; height: 63px; overflow: hidden; margin: 0px 10px; }
+	.sina { background: url(../images/ioc_1.png) no-repeat center center;  }
+	.tengxun { background: url(../images/ioc_2.png) no-repeat center center; }
+	.weixin { background: url(../images/ioc_3.png) no-repeat center center; }
+	.renren { background: url(../images/ioc_4.png) no-repeat center center; }
+	.recommendBox { clear: both; width: 328px; height: 62px; overflow: hidden; margin: 0px auto 30px auto; }
+	.recommendBox li { background: #FFF; float: left; width: 62px; height: 62px; overflow: hidden; margin: 0px 10px; }
+	.teamBox { font-size: 16px; color: #000; line-height: 32px; width: 295px; margin: 0px auto 30px auto; }
+	.copyrightBox { font-family: Arial, Helvetica, sans-serif; line-height: 24px; border-top: 1px solid #CEC3AE; text-align: center; width: 328px; margin: 0px auto; padding-top: 30px; }
 }
-
