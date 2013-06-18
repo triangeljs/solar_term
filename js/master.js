@@ -5,6 +5,11 @@ $(function(){
 	var clientW = document.body.clientWidth;
 	var clientH = document.body.clientHeight;
 	
+	if(clientW < clientH){
+		clientW = document.body.clientHeight;
+		clientH = document.body.clientWidth;
+	}
+	
 	window.setTimeout(function(){
 		$(document).on('touchmove',forbidMove);
 		document.body.scroll = 'no';
