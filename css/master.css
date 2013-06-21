@@ -3,6 +3,7 @@
 @media screen and (orientation:portrait) {
 	body { background: #000 url(../images/app.png) no-repeat center center; display: block; width: 768px; height: 1024px; overflow: hidden; opacity: 0.5; }
 	body div { display: none; }
+	#mp3 { display: none; }
 }
 
 /*横屏*/
@@ -19,11 +20,12 @@
 		-webkit-box-align: center;
 		-webkit-backface-visibility: hidden;
 	}
+	#mp3 { display: none; }
 	
 	/*开始*/
 	.logo { background: #F2F0ED url(../images/logo.png) no-repeat center center; width: 100%; height: 530px; }
 	.copyright { font-family: Arial, Helvetica, sans-serif; line-height: 26px; text-align: center; width: 100%; height: 52px; overflow: hidden; position: absolute; left: 0px; bottom: 30px; }
-	.copyright p { line-height: 30px; background: url(../images/logo_gq.png) no-repeat left center; width: 260px; height: 30px; margin: 0px auto; }
+	.copyright p { line-height: 30px; background: url(../images/logo_gq.png) no-repeat left center; width: 280px; height: 30px; margin: 0px auto; }
 	
 	/*场景一*/
 	#synopsis { background: #F2F0ED; width: 100%; height: 530px; }
