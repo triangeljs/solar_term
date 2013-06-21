@@ -270,6 +270,8 @@ $(function(){
 		var timeTxt;
 		if(nTime - cTime > 0){
 			timeTxt = year +'年'+ (nMonth + 1) +'月'+ nDate +'日，还有'+ time +'天';
+		}else if (cTime == nTime){
+			timeTxt = year +'年'+ (nMonth + 1) +'月'+ nDate +'日';
 		}else{
 			timeTxt = year +'年'+ (nMonth + 1) +'月'+ nDate +'日，已过';
 		}
@@ -384,9 +386,9 @@ function getSolarTerms() {
 		njieqi = solar_term_info[arrC[1].id].title;
 		nmonth = cMonth;
 		ndate = arrC[1].d;
-		cur = arrC[1].id;
-		curDeg = -arrC[1].id * 15;
-		curJqId = arrC[1].id;
+		cur = arrC[0].id;
+		curDeg = -arrC[0].id * 15;
+		curJqId = arrC[0].id;
 	} else if (date < arrC[1].d) {
 		str = '已过' + solar_term_info[arrC[0].id].title;
 		upperDate = new Date(year, cMonth - 1, arrC[1].d);
@@ -401,9 +403,9 @@ function getSolarTerms() {
 		njieqi = solar_term_info[arrN[0].id].title;
 		nmonth = nMonth;
 		ndate = arrN[0].d;
-		cur = arrN[0].id;
-		curDeg = -arrN[0].id * 15;
-		curJqId = arrN[0].id;
+		cur = arrC[1].id;
+		curDeg = -arrC[1].id * 15;
+		curJqId = arrC[1].id;
 		if (12 == cMonth) {
 			upperDate = new Date(year + 1, nMonth - 1, arrN[0].d);
 		} else {
